@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Jungian Mirror</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="psyche-container">
+        <h1>Psyche.OS</h1>
+        
+        <video id="webcam" autoplay playsinline muted hidden></video>
+        <canvas id="display"></canvas>
+
+        <div class="controls">
+            <div id="filter-list" class="filter-list">
+                </div>
+            <button id="random-filter-btn" title="Random Psyche Filter">
+                <i class="fa-solid fa-dice"></i>
+            </button>
+            <button id="screenshot-btn" title="Save Image">
+                <i class="fa-solid fa-camera"></i>
+            </button>
+            <button id="record-btn" title="Record 5s Video">
+                <i class="fa-solid fa-video"></i>
+            </button>
+        </div>
+
+        <div id="description-box" class="description-box">
+            <h3>The Self</h3>
+            <p>The unified whole of the conscious and unconscious. Wholeness, integration, and the center of the total personality.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

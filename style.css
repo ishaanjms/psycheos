@@ -1,0 +1,162 @@
+/* --- Base Setup & Theme --- */
+:root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #a89a7a; /* A muted, symbolic gold */
+    --surface-color: #1e1e1e;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.psyche-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    width: 800px;
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+h1 {
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-top: 0;
+}
+
+/* --- The "Mirror" (Canvas) --- */
+#display {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: scaleX(-1);
+    transition: filter 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+
+/* --- Filter CSS Classes --- */
+#display.none { filter: none; }
+
+#display.persona {
+    box-shadow: 0 0 15px rgba(200, 200, 255, 0.2);
+}
+
+#display.shadow {
+    filter: grayscale(0.8) contrast(1.6) brightness(0.7);
+}
+
+#display.anima {
+    /* All effects handled in JS */
+    filter: none;
+}
+
+#display.self {
+    filter: saturate(1.1) brightness(1.05) contrast(1.05);
+}
+
+/* --- UI Controls --- */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1.5rem 0;
+    gap: 0.5rem;
+}
+
+.filter-list {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 0.75rem;
+}
+
+.controls button {
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.controls button:hover {
+    opacity: 1;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+}
+
+.controls button.active {
+    opacity: 1;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+}
+
+/* --- NEW RECORDING STATE --- */
+#record-btn.recording {
+    background: #e00;
+    border-color: #ff5555;
+    color: #fff;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+/* ------------------------- */
+
+/* --- Description Box --- */
+.description-box {
+    text-align: center;
+    min-height: 4em;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.description-box.visible {
+    opacity: 1;
+}
+
+.description-box h3 {
+    margin: 0.5rem 0 0.25rem 0;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.description-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
