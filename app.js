@@ -214,21 +214,38 @@ window.addEventListener('DOMContentLoaded', () => {
     // --- Specific Canvas Effect Functions ---
 
     function applyShadowEffect() {
-        // Add a dark vignette
-        const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, canvas.width / 3, canvas.width / 2, canvas.height / 2, canvas.width / 1.5);
-        gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.85)'); // <-- CHANGED from 0.6
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const width = canvas.width;
+        const height = canvas.height;
 
-        // Add a "glitch" effect (draws small, offset slices of the canvas)
-        if (Math.random() > 0.92) { // Glitch occasionally
-            for (let i = 0; i < 3; i++) {
-                const y = Math.random() * canvas.height;
-                const h = Math.random() * 20 + 5;
-                const xOffset = (Math.random() - 0.5) * 30;
-                ctx.drawImage(canvas, xOffset, y, canvas.width, h, 0, y, canvas.width, h);
+        // 1. Dark Vignette (already darkened)
+        const gradient = ctx.createRadialGradient(width / 2, height / 2, width / 3, width / 2, height / 2, width / 1.5);
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.85)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Slice Glitch (now more frequent and slightly larger)
+        if (Math.random() > 0.85) { // <-- Increased frequency from 0.92
+            for (let i = 0; i < 2; i++) { // Run it a couple of times
+                const y = Math.random() * height;
+                const h = Math.random() * 30 + 10; // Slightly larger
+                const xOffset = (Math.random() - 0.5) * 40;
+                ctx.drawImage(canvas, xOffset, y, width, h, 0, y, width, h);
             }
+        }
+
+        // 3. NEW: Subtle RGB Split Glitch
+        if (Math.random() > 0.95) { // Happens rarely, like a flicker
+            ctx.globalCompositeOperation = 'lighter'; // Additive blending
+            const offset = (Math.random() - 0.5) * 10;
+            
+            // Draw red-ish channel offset
+            ctx.drawImage(canvas, offset, 0);
+            
+            // Draw blue-ish channel offset
+            ctx.drawImage(canvas, -offset, 0);
+            
+            ctx.globalCompositeOperation = 'source-over'; // Reset blending
         }
     }
 
