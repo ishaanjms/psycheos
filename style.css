@@ -6,7 +6,6 @@
     --surface-color: #1e1e1e;
 }
 
-/* NEW: Ensures padding is included in width/height calculations */
 * {
     box-sizing: border-box;
 }
@@ -17,19 +16,19 @@ body {
     color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Changed from 'center' for mobile */
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
-    overflow-y: auto; /* Allow scrolling on small devices if needed */
+    overflow-y: auto;
 }
 
 .psyche-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* CHANGED: Was fixed width */
-    max-width: 800px; /* CHANGED: Kept max-width for desktop */
-    margin: 1.5rem 0; /* Add margin for desktop view */
+    width: 100%;
+    max-width: 800px;
+    margin: 1.5rem 0;
     background: var(--surface-color);
     border-radius: 16px;
     padding: 2rem;
@@ -42,7 +41,7 @@ h1 {
     letter-spacing: 1px;
     opacity: 0.8;
     margin-top: 0;
-    text-align: center; /* Good for mobile */
+    text-align: center;
 }
 
 /* --- The "Mirror" (Canvas) --- */
@@ -69,7 +68,6 @@ h1 {
 }
 
 #display.anima {
-    /* All effects handled in JS */
     filter: none;
 }
 
@@ -80,22 +78,26 @@ h1 {
 /* --- UI Controls --- */
 .controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* CHANGED */
     align-items: center;
     width: 100%;
     margin: 1.5rem 0;
     gap: 0.5rem;
-    flex-wrap: wrap; /* NEW: Allow buttons to wrap on small screens */
 }
 
 .filter-list {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
+    flex-grow: 1; /* Allows filters to take up available space */
     gap: 0.75rem;
-    /* Ensure the main filter list doesn't shrink too much */
-    min-width: 200px; 
+}
+
+/* NEW group for action buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0; /* Prevents this group from shrinking */
 }
 
 .controls button {
@@ -109,7 +111,6 @@ h1 {
     cursor: pointer;
     transition: all 0.2s ease;
     opacity: 0.7;
-    /* NEW: Prevent buttons from shrinking weirdly */
     flex-shrink: 0; 
 }
 
@@ -175,16 +176,14 @@ h1 {
 }
 
 /*
---- 📱 NEW: MOBILE RESPONSIVE STYLES --- 
+--- 📱 MOBILE RESPONSIVE STYLES (UPDATED) --- 
 */
 @media (max-width: 600px) {
     body {
-        /* Remove alignment to let the container fill the top */
         align-items: flex-start;
     }
 
     .psyche-container {
-        /* Make the container fill the whole screen */
         min-height: 100vh;
         border-radius: 0;
         margin: 0;
@@ -193,26 +192,36 @@ h1 {
     }
 
     h1 {
-        font-size: 1.6rem; /* Slightly smaller title */
+        font-size: 1.6rem;
     }
 
+    /* --- NEW LAYOUT --- */
     .controls {
+        flex-direction: column; /* Stack the two groups vertically */
         margin: 1rem 0;
-        gap: 0.25rem; /* Tighter gap between buttons */
+        gap: 1rem; /* Add space between the filter row and action row */
     }
 
     .filter-list {
-        gap: 0.5rem; /* Tighter gap for filter icons */
+        width: 100%;
+        justify-content: center;
+        gap: 0.5rem;
     }
 
+    .action-buttons {
+        width: 100%;
+        justify-content: center;
+        gap: 0.75rem; /* Space out the 3 action buttons */
+    }
+    /* ------------------ */
+
     .controls button {
-        /* Slightly smaller buttons to fit more */
-        width: 40px;
-        height: 40px;
+        width: 42px; /* Slightly larger buttons for touch */
+        height: 42px;
         font-size: 1rem;
     }
 
     .description-box p {
-        font-size: 0.85rem; /* Slightly smaller text */
+        font-size: 0.85rem;
     }
 }
