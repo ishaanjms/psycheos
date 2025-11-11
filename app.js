@@ -217,12 +217,12 @@ window.addEventListener('DOMContentLoaded', () => {
         // Add a dark vignette
         const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, canvas.width / 3, canvas.width / 2, canvas.height / 2, canvas.width / 1.5);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.6)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.85)'); // <-- CHANGED from 0.6
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Add a "glitch" effect
-        if (Math.random() > 0.92) {
+        // Add a "glitch" effect (draws small, offset slices of the canvas)
+        if (Math.random() > 0.92) { // Glitch occasionally
             for (let i = 0; i < 3; i++) {
                 const y = Math.random() * canvas.height;
                 const h = Math.random() * 20 + 5;
